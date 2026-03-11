@@ -18,13 +18,14 @@ export function buildVerifySessionRequest() {
 
 			const verifyJwtResult = await JWTManager.verify<JWTPayload>(jwt, KEY_GENERATION_CONFIG);
 
-			if (!verifyJwtResult.ok)
+			if (!verifyJwtResult.ok) {
 				return context.c.json({
 					message: verifyJwtResult.message,
 					error: verifyJwtResult.error
 				}, 401);
+			}
 
-			return context.c.json({ valid: true, message: "OK" }, 200);
+			return context.c.json({ message: "OK", data: verifyJwtResult.value }, 200);
 		})
 	);
 }
