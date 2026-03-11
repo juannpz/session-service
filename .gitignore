@@ -2,3 +2,5 @@
 
 # exclusions
 !.gitignore
+
+test.ts
