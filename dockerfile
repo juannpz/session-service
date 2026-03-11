@@ -14,7 +14,7 @@ RUN chmod +x ./wait-for.sh
 RUN deno cache index.ts
 
 # Exponer puerto que usa el servicio (ajustar si es necesario)
-EXPOSE 3000
+EXPOSE 3001
 
 # CMD limpio usando un solo wait-for.sh para todos los servicios
-CMD ["./wait-for.sh", "--", "deno", "run", "--allow-all", "index.ts"]
+CMD ["deno", "run", "--allow-all", "index.ts"]
