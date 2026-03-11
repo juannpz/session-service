@@ -1,7 +1,7 @@
 import { Header, IGenerateKeyConfig, Payload } from "@juannpz/deno-service-tools";
 
 export interface JWTPayload extends Payload {
-    userId: string;
+    user_id: string;
 }
 
 export const KEY_GENERATION_CONFIG: IGenerateKeyConfig = {

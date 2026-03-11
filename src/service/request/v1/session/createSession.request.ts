@@ -3,7 +3,7 @@ import { getNumericDate, JWTManager, Router, ValidationResult } from "@juannpz/d
 import { ExtendedContextVariables } from "../../request.definition.ts";
 
 interface Body extends Record<string, unknown> {
-	userId: string;
+	user_id: string;
 }
 
 export function buildCreateSessionRequest() {
@@ -14,10 +14,10 @@ export function buildCreateSessionRequest() {
 		.validateBody(validateBody)
 		.withVariables<ExtendedContextVariables>()
 		.handler(async (context) => {
-			const { userId } = context.body;
+			const { user_id } = context.body;
 
 			const JWTPayload: JWTPayload = {
-				userId,
+				user_id,
 				aud: "test",
 				exp: getNumericDate(60 * 60),
 				iss: "test",
@@ -38,8 +38,8 @@ export function buildCreateSessionRequest() {
 }
 
 function validateBody(body: Body): ValidationResult {
-	if (!body.userId)
-		return { valid: false, message: 'Missing "userId" prop in body' };
+	if (!body.user_id)
+		return { valid: false, message: 'Missing "user_id" prop in body' };
 
 	return { valid: true };
 }
