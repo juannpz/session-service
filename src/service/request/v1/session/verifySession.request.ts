@@ -24,7 +24,7 @@ export function buildVerifySessionRequest() {
 					error: verifyJwtResult.error
 				}, 401);
 
-			return context.c.json({ message: "OK" }, 200);
+			return context.c.json({ valid: true, message: "OK" }, 200);
 		})
 	);
 }
