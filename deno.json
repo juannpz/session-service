@@ -1,0 +1,11 @@
+{
+  "tasks": {
+    "dev": "deno run --allow-all --watch index.ts",
+    "start": "deno run --allow-all index.ts"
+  },
+  "imports": {
+    "@juannpz/deno-service-tools": "jsr:@juannpz/deno-service-tools@0.5.7-3",
+    "@juannpz/extra-sql": "jsr:@juannpz/extra-sql@0.0.8",
+    "@std/dotenv": "jsr:@std/dotenv@^0.225.5"
+  }
+}
