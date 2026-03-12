@@ -1,18 +1,41 @@
 {
   "version": "5",
   "specifiers": {
+    "jsr:@denosaurs/plug@^1.1.0": "1.1.0",
+    "jsr:@felix/bcrypt@^1.0.8": "1.0.8",
     "jsr:@hono/hono@4.7.8": "4.7.8",
-    "jsr:@juannpz/deno-service-tools@0.5.7-3": "0.5.7-3",
+    "jsr:@juannpz/deno-service-tools@0.5.7-4": "0.5.7-4",
     "jsr:@juannpz/extra-sql@0.0.8": "0.0.8",
-    "jsr:@std/dotenv@~0.225.5": "0.225.5",
+    "jsr:@std/dotenv@~0.225.5": "0.225.6",
+    "jsr:@std/encoding@1": "1.0.10",
+    "jsr:@std/fmt@1": "1.0.9",
+    "jsr:@std/fs@1": "1.0.23",
+    "jsr:@std/internal@^1.0.12": "1.0.12",
+    "jsr:@std/path@1": "1.1.4",
+    "jsr:@std/path@^1.1.4": "1.1.4",
     "npm:pg@^8.15.6": "8.15.6"
   },
   "jsr": {
+    "@denosaurs/plug@1.1.0": {
+      "integrity": "eb2f0b7546c7bca2000d8b0282c54d50d91cf6d75cb26a80df25a6de8c4bc044",
+      "dependencies": [
+        "jsr:@std/encoding",
+        "jsr:@std/fmt",
+        "jsr:@std/fs",
+        "jsr:@std/path@1"
+      ]
+    },
+    "@felix/bcrypt@1.0.8": {
+      "integrity": "59c41160fc027882479c512db5d53792c4d91aadcd49467c85caa2f1679046f2",
+      "dependencies": [
+        "jsr:@denosaurs/plug"
+      ]
+    },
     "@hono/hono@4.7.8": {
       "integrity": "620b1eaab065196d4ebe02cff31f8d3a78c94f736ce2ca86ee14f5f26fe48ecd"
     },
-    "@juannpz/deno-service-tools@0.5.7-3": {
-      "integrity": "abaf75d3bb60a4b0b0160309293f5ec86b7e5bde358cbc5512fe337cbb971c01",
+    "@juannpz/deno-service-tools@0.5.7-4": {
+      "integrity": "2ba0267aad7bc3cfa1678b3ede7c815857e7cbb7756a5617c5b890495c8b9dfe",
       "dependencies": [
         "jsr:@hono/hono"
       ]
@@ -22,6 +45,37 @@
     },
     "@std/dotenv@0.225.5": {
       "integrity": "9ce6f9d0ec3311f74a32535aa1b8c62ed88b1ab91b7f0815797d77a6f60c922f"
+    },
+    "@std/dotenv@0.225.6": {
+      "integrity": "1d6f9db72f565bd26790fa034c26e45ecb260b5245417be76c2279e5734c421b"
+    },
+    "@std/encoding@1.0.10": {
+      "integrity": "8783c6384a2d13abd5e9e87a7ae0520a30e9f56aeeaa3bdf910a3eaaf5c811a1"
+    },
+    "@std/fmt@1.0.8": {
+      "integrity": "71e1fc498787e4434d213647a6e43e794af4fd393ef8f52062246e06f7e372b7"
+    },
+    "@std/fmt@1.0.9": {
+      "integrity": "2487343e8899fb2be5d0e3d35013e54477ada198854e52dd05ed0422eddcabe0"
+    },
+    "@std/fs@1.0.23": {
+      "integrity": "3ecbae4ce4fee03b180fa710caff36bb5adb66631c46a6460aaad49515565a37",
+      "dependencies": [
+        "jsr:@std/internal",
+        "jsr:@std/path@^1.1.4"
+      ]
+    },
+    "@std/internal@1.0.12": {
+      "integrity": "972a634fd5bc34b242024402972cd5143eac68d8dffaca5eaa4dba30ce17b027"
+    },
+    "@std/path@1.1.3": {
+      "integrity": "b015962d82a5e6daea980c32b82d2c40142149639968549c649031a230b1afb3"
+    },
+    "@std/path@1.1.4": {
+      "integrity": "1d2d43f39efb1b42f0b1882a25486647cb851481862dc7313390b2bb044314b5",
+      "dependencies": [
+        "jsr:@std/internal"
+      ]
     }
   },
   "npm": {
@@ -389,7 +443,8 @@
   },
   "workspace": {
     "dependencies": [
-      "jsr:@juannpz/deno-service-tools@0.5.7-3",
+      "jsr:@felix/bcrypt@^1.0.8",
+      "jsr:@juannpz/deno-service-tools@0.5.7-4",
       "jsr:@juannpz/extra-sql@0.0.8",
       "jsr:@std/dotenv@~0.225.5"
     ]

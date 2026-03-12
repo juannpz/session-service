@@ -9,6 +9,8 @@ export function reBuildAuthHeaders(req: Request) {
     return { Authorization: req.headers.get("Authorization") };
 }
 
-export function getContextVariables(context: Context<{ Variables: ExtendedContextVariables }>): ExtendedContextVariables {
-   return context.var;
+export function getContextVariables(
+    context: Context<{ Variables: ExtendedContextVariables }>,
+): ExtendedContextVariables {
+    return context.var;
 }

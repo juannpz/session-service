@@ -4,7 +4,7 @@ import { initManager } from "./manager/init.ts";
 import { getConfig } from "./service.config.ts";
 
 const server = createServer<ExtendedContextVariables>({
-	port: 3001
+    port: 3001,
 });
 
 export function init() {
@@ -12,7 +12,7 @@ export function init() {
 
     initManager(config);
 
-    addRequest(server)
-    
+    addRequest(server);
+
     server.start();
 }
