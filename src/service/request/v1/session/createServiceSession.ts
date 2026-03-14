@@ -119,7 +119,7 @@ async function verifyCredentials(userId: string, publicKey: string, crudServiceE
         return ResUtil.Fail("Api key not found");
     }
 
-    const valid = await verify(apiKey.public_key, publicKey);
+    const valid = await verify(publicKey, apiKey.public_key);
 
     if (!valid) return ResUtil.Fail("Invalid public key");
 
