@@ -1,11 +1,11 @@
 {
     "tasks": {
-        "dev": "deno run --allow-all --watch index.ts",
+        "dev": "deno run --allow-all --watch --unstable-kv index.ts",
         "start": "deno run --allow-all index.ts"
     },
     "imports": {
         "@felix/bcrypt": "jsr:@felix/bcrypt@^1.0.8",
-        "@juannpz/deno-service-tools": "jsr:@juannpz/deno-service-tools@0.5.7-4",
+        "@juannpz/deno-service-tools": "jsr:@juannpz/deno-service-tools@0.6.0",
         "@juannpz/extra-sql": "jsr:@juannpz/extra-sql@0.0.8",
         "@std/dotenv": "jsr:@std/dotenv@^0.225.5"
     },
@@ -15,10 +15,8 @@
         }
     },
     "fmt": {
-        "options": {
-            "useTabs": false,
-            "indentWidth": 4,
-            "lineWidth": 100
-        }
+        "useTabs": false,
+        "indentWidth": 4,
+        "lineWidth": 100
     }
 }

@@ -32,6 +32,8 @@ export class ServiceTokenProvider {
 
             return ResUtil.Succeed(undefined);
         } catch (error) {
+            console.error(error);
+
             return ResUtil.Fail("Failed to initialize Deno KV in ServiceTokenProvider", error);
         }
     }

@@ -6,10 +6,10 @@ import {
 } from "./service.definition.ts";
 import { checkEnv } from "@juannpz/deno-service-tools";
 
-export function getConfig() {
+function getConfig() {
     const config: ServiceConfig = {
         authConfig: getAuthConfig(),
-        sessionAuthConfig: getSessionServiceAuthConfig(),
+        sessionAuthConfig: getServiceAuthConfig(),
         servicesEntrypoints: getServicesEntrypoints(),
     };
 
@@ -22,12 +22,12 @@ function getAuthConfig(): AuthConfig {
     };
 }
 
-function getSessionServiceAuthConfig(): ServiceAuthConfig {
+function getServiceAuthConfig(): ServiceAuthConfig {
     return {
-        SERVICE_AUTH_AUD: Deno.env.get("SERVICE_AUTH_AUD") ?? "",
-        SERVICE_AUTH_ROLE: Deno.env.get("SERVICE_AUTH_ROLE") ?? "",
-        SERVICE_AUTH_SUB: Deno.env.get("SERVICE_AUTH_SUB") ?? "",
         SERVICE_AUTH_USER_ID: Deno.env.get("SERVICE_AUTH_USER_ID") ?? "",
+        SERVICE_AUTH_ROLE: Deno.env.get("SERVICE_AUTH_ROLE") ?? "",
+        SERVICE_AUTH_AUD: Deno.env.get("SERVICE_AUTH_AUD") ?? "",
+        SERVICE_AUTH_SUB: Deno.env.get("SERVICE_AUTH_SUB") ?? "",
     };
 }
 
@@ -36,3 +36,5 @@ function getServicesEntrypoints(): ServicesEntrypoints {
         CRUD_SERVICE: Deno.env.get("CRUD_SERVICE") ?? "",
     };
 }
+
+export const SERVICE_CONFIG = getConfig();

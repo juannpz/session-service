@@ -1,5 +1,10 @@
 import { JWTPayload, KEY_GENERATION_CONFIG } from "../../../service.definition.ts";
-import { JWTManager, Router, ValidationResult } from "@juannpz/deno-service-tools";
+import {
+    buildRequestResponse,
+    JWTManager,
+    Router,
+    ValidationResult,
+} from "@juannpz/deno-service-tools";
 import { ExtendedContextVariables } from "../../request.definition.ts";
 
 interface Body extends Record<string, unknown> {
@@ -16,17 +21,14 @@ export const verifySessionRequest = Router.post<ExtendedContextVariables>("/veri
 
         const verifyJwtResult = await JWTManager.verify<JWTPayload>(jwt, KEY_GENERATION_CONFIG);
 
-			if (!verifyJwtResult.ok) {
-				return context.c.json({
-					message: verifyJwtResult.message,
-					error: verifyJwtResult.error
-				}, 401);
-			}
+        const response = buildRequestResponse(verifyJwtResult);
 
-			return context.c.json({ message: "OK", data: verifyJwtResult.value }, 200);
-		})
-	);
-}
+        if (!response.success) {
+            return context.c.json({ ...response, code: 401 }, 401);
+        }
+
+        return context.c.json(response, 200);
+    });
 
 function validateBody(body: Body): ValidationResult {
     if (!body.jwt) {

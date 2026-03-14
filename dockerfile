@@ -17,4 +17,4 @@ RUN deno cache index.ts
 EXPOSE 3001
 
 # CMD limpio usando un solo wait-for.sh para todos los servicios
-CMD ["deno", "run", "--allow-all", "index.ts"]
+CMD ["deno", "run", "--allow-all", "--unstable-kv", "index.ts"]

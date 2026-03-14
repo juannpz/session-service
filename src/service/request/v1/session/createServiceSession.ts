@@ -20,34 +20,31 @@ import { ServiceTokenProvider } from "../../../manager/serviceAuth/ServiceTokenP
 import { SERVICE_CONFIG } from "../../../service.config.ts";
 
 interface Body extends Record<string, unknown> {
-    email: string;
-    password: string;
+    user_id: string;
+    role: string;
+    public_key: string;
 }
 
-interface UserCredentials {
-    identity_id: number;
+interface ApiKey {
+    api_key_id: string;
     user_id: string;
-    email: string;
-    first_name: string;
-    last_name: string;
-    password: string;
-    phone: Record<string, unknown>;
-    metadata: Record<string, unknown>;
+    public_key: string;
+    private_key: string;
     created_at: Date;
     updated_at: Date;
 }
 
-export const createSessionRequest = Router.post<ExtendedContextVariables>("/create")
+export const createServiceSessionRequest = Router.post<ExtendedContextVariables>("/service/create")
     .describe("Create session request")
     .body<Body>()
     .validateBody(validateBody)
     .withVariables<ExtendedContextVariables>()
     .handler(async (context) => {
-        const { email, password } = context.body;
+        const { user_id, role, public_key } = context.body;
 
         const verifyCredentialsResult = await verifyCredentials(
-            email,
-            password,
+            user_id,
+            public_key,
             SERVICE_CONFIG.servicesEntrypoints.CRUD_SERVICE,
         );
 
@@ -59,12 +56,12 @@ export const createSessionRequest = Router.post<ExtendedContextVariables>("/crea
         }
 
         const jwtPayload: JWTPayload = {
-            userId: verifyCredentialsResult.value.user_id,
-            role: "USER",
+            userId: user_id,
+            role,
             aud: "*",
             exp: getNumericDate(60 * 60),
             iss: "session-service",
-            sub: verifyCredentialsResult.value.user_id,
+            sub: user_id,
         };
 
         const generateJwtResult = await JWTManager.generate<JWTPayload>(
@@ -84,45 +81,49 @@ export const createSessionRequest = Router.post<ExtendedContextVariables>("/crea
     });
 
 function validateBody(body: Body): ValidationResult {
-    if (!body.email) {
-        return { valid: false, message: 'Missing "email" prop in body' };
+    if (!body.user_id) {
+        return { valid: false, message: 'Missing "user_id" prop in body' };
     }
 
-    if (!body.password) {
-        return { valid: false, message: 'Missing "password" prop in body' };
+    if (!body.role) {
+        return { valid: false, message: 'Missing "role" prop in body' };
+    }
+
+    if (!body.public_key) {
+        return { valid: false, message: 'Missing "public_key" prop in body' };
     }
 
     return { valid: true };
 }
 
-async function verifyCredentials(email: string, password: string, crudServiceEntrypoint: string) {
+async function verifyCredentials(userId: string, publicKey: string, crudServiceEntrypoint: string) {
     const getTokenResult = await ServiceTokenProvider.getValidToken();
 
     if (!getTokenResult.ok) {
         return getTokenResult;
     }
 
-    const getUserCredentialsResult = await safeFetch<{ data: UserCredentials[] }>(
-        fetch(`${crudServiceEntrypoint}/v1/crud/user-credentials?format=object&email=${email}`, {
+    const getApiKeyResult = await safeFetch<{ data: ApiKey[] }>(
+        fetch(`${crudServiceEntrypoint}/v1/crud/api-keys?format=object&user_id=${userId}`, {
             headers: buildAuthHeaders(getTokenResult.value),
         }),
     );
 
-    if (!getUserCredentialsResult.ok) {
-        return getUserCredentialsResult;
+    if (!getApiKeyResult.ok) {
+        return getApiKeyResult;
     }
 
-    const userCredentials = getUserCredentialsResult.value.data.at(0);
+    const apiKey = getApiKeyResult.value.data.at(0);
 
-    if (!userCredentials) {
-        return ResUtil.Fail("User credentials not found");
+    if (!apiKey) {
+        return ResUtil.Fail("Api key not found");
     }
 
-    const pgHash = await hash(password);
+    const pgHash = await hash(publicKey);
 
-    const valid = await verify(userCredentials.password, pgHash);
+    const valid = await verify(apiKey.public_key, pgHash);
 
-    if (!valid) return ResUtil.Fail("Invalid password");
+    if (!valid) return ResUtil.Fail("Invalid public key");
 
-    return ResUtil.Succeed(userCredentials);
+    return ResUtil.Succeed("OK");
 }

@@ -4,7 +4,7 @@
     "jsr:@denosaurs/plug@^1.1.0": "1.1.0",
     "jsr:@felix/bcrypt@^1.0.8": "1.0.8",
     "jsr:@hono/hono@4.7.8": "4.7.8",
-    "jsr:@juannpz/deno-service-tools@0.5.7-4": "0.5.7-4",
+    "jsr:@juannpz/deno-service-tools@0.6.0": "0.6.0",
     "jsr:@juannpz/extra-sql@0.0.8": "0.0.8",
     "jsr:@std/dotenv@~0.225.5": "0.225.6",
     "jsr:@std/encoding@1": "1.0.10",
@@ -34,8 +34,8 @@
     "@hono/hono@4.7.8": {
       "integrity": "620b1eaab065196d4ebe02cff31f8d3a78c94f736ce2ca86ee14f5f26fe48ecd"
     },
-    "@juannpz/deno-service-tools@0.5.7-4": {
-      "integrity": "2ba0267aad7bc3cfa1678b3ede7c815857e7cbb7756a5617c5b890495c8b9dfe",
+    "@juannpz/deno-service-tools@0.6.0": {
+      "integrity": "38910736e2011b36eba57216b3aeb433bd0bea1b9916d876857221dcbafc1459",
       "dependencies": [
         "jsr:@hono/hono"
       ]
@@ -444,7 +444,7 @@
   "workspace": {
     "dependencies": [
       "jsr:@felix/bcrypt@^1.0.8",
-      "jsr:@juannpz/deno-service-tools@0.5.7-4",
+      "jsr:@juannpz/deno-service-tools@0.6.0",
       "jsr:@juannpz/extra-sql@0.0.8",
       "jsr:@std/dotenv@~0.225.5"
     ]
