@@ -14,7 +14,7 @@ import {
     KEY_GENERATION_CONFIG,
 } from "../../../service.definition.ts";
 
-import { hash, verify } from "@felix/bcrypt";
+import { verify } from "@felix/bcrypt";
 import { buildAuthHeaders } from "../../request.util.ts";
 import { ServiceTokenProvider } from "../../../manager/serviceAuth/ServiceTokenProvider.ts";
 import { SERVICE_CONFIG } from "../../../service.config.ts";
@@ -118,9 +118,7 @@ async function verifyCredentials(email: string, password: string, crudServiceEnt
         return ResUtil.Fail("User credentials not found");
     }
 
-    const pgHash = await hash(password);
-
-    const valid = await verify(userCredentials.password, pgHash);
+    const valid = await verify(password, userCredentials.password);
 
     if (!valid) return ResUtil.Fail("Invalid password");
 

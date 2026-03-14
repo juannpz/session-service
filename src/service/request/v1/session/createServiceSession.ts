@@ -14,7 +14,7 @@ import {
     KEY_GENERATION_CONFIG,
 } from "../../../service.definition.ts";
 
-import { hash, verify } from "@felix/bcrypt";
+import { verify } from "@felix/bcrypt";
 import { buildAuthHeaders } from "../../request.util.ts";
 import { ServiceTokenProvider } from "../../../manager/serviceAuth/ServiceTokenProvider.ts";
 import { SERVICE_CONFIG } from "../../../service.config.ts";
@@ -50,7 +50,7 @@ export const createServiceSessionRequest = Router.post<ExtendedContextVariables>
 
         if (!verifyCredentialsResult.ok) {
             const response = buildRequestResponse(verifyCredentialsResult);
-            response.code = 401;
+			response.code = 401;
 
             return context.c.json(response, response.code);
         }
@@ -104,7 +104,7 @@ async function verifyCredentials(userId: string, publicKey: string, crudServiceE
     }
 
     const getApiKeyResult = await safeFetch<{ data: ApiKey[] }>(
-        fetch(`${crudServiceEntrypoint}/v1/crud/api-keys?format=object&user_id=${userId}`, {
+        fetch(`${crudServiceEntrypoint}/v1/crud/api-key?format=object&user_id=${userId}`, {
             headers: buildAuthHeaders(getTokenResult.value),
         }),
     );
@@ -119,9 +119,7 @@ async function verifyCredentials(userId: string, publicKey: string, crudServiceE
         return ResUtil.Fail("Api key not found");
     }
 
-    const pgHash = await hash(publicKey);
-
-    const valid = await verify(apiKey.public_key, pgHash);
+    const valid = await verify(apiKey.public_key, publicKey);
 
     if (!valid) return ResUtil.Fail("Invalid public key");
 
