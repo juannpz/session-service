@@ -1,7 +1,7 @@
 import { ContextVariables, ServerBuilder } from "@juannpz/deno-service-tools";
 import { verifySessionRequest } from "./v1/session/verifySession.request.ts";
 import { createSessionRequest } from "./v1/session/createSession.request.ts";
-import { createServiceSessionRequest } from "./v1/session/createServiceSession.ts";
+import { createServiceSessionRequest } from "./v1/session/createServiceSession.request.ts";
 
 export interface ExtendedContextVariables extends ContextVariables {}
 

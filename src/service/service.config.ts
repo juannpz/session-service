@@ -1,5 +1,6 @@
 import {
     AuthConfig,
+    NetworkConfig,
     ServiceAuthConfig,
     ServiceConfig,
     ServicesEntrypoints,
@@ -11,6 +12,7 @@ function getConfig() {
         authConfig: getAuthConfig(),
         sessionAuthConfig: getServiceAuthConfig(),
         servicesEntrypoints: getServicesEntrypoints(),
+		networkConfig: getNetworkConfig()
     };
 
     return checkEnv(config);
@@ -35,6 +37,12 @@ function getServicesEntrypoints(): ServicesEntrypoints {
     return {
         CRUD_SERVICE: Deno.env.get("CRUD_SERVICE") ?? "",
     };
+}
+
+function getNetworkConfig(): NetworkConfig {
+	return {
+		PORT: Deno.env.get("PORT") ?? ""
+	}
 }
 
 export const SERVICE_CONFIG = getConfig();

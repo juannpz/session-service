@@ -20,6 +20,7 @@ export interface ServiceConfig {
     authConfig: AuthConfig;
     sessionAuthConfig: ServiceAuthConfig;
     servicesEntrypoints: ServicesEntrypoints;
+	networkConfig: NetworkConfig;
 }
 
 export interface AuthConfig {
@@ -35,4 +36,8 @@ export interface ServiceAuthConfig {
 
 export interface ServicesEntrypoints {
     CRUD_SERVICE: string;
+}
+
+export interface NetworkConfig {
+	PORT: string
 }
